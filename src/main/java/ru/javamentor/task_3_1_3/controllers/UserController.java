@@ -54,117 +54,92 @@ public class UserController {
         String email = authentication.getName();
 
         User user = (User) userService.loadUserByUsername(email);
-//        String titleRole = "USER";
-//        for (Role role : user.getRoles()) {
-//            if (role.equals(Role.ADMIN)) {
-//                titleRole = "ADMIN";
-//                break;
-//            }
-//        }
-
-//        modelAndView.addObject("titleRole", titleRole);
         modelAndView.addObject("user", user);
         modelAndView.addObject("authentication", authentication);
         modelAndView.setViewName("/user");
         return modelAndView;
     }
 
-
-    @GetMapping("/admin")
-    public ModelAndView admin(ModelAndView modelAndView, Authentication authentication) {
-        List<User> users = userService.findAll();
-        modelAndView.addObject("users", users);
-        modelAndView.addObject("authentication", authentication);
-        modelAndView.addObject("usernew", new User());
-//        modelAndView.addObject("rolesnew", new HashSet<Role>());
-        modelAndView.setViewName("/admin-page");
-        return modelAndView;
-    }
-
-
-    @GetMapping("/admin/update")
-    public ModelAndView updateUser(@RequestParam("id") Long id, ModelAndView modelAndView) {
-        User user = userService.findById(id);
-        modelAndView.addObject("userEdit", user);
-        modelAndView.setViewName("/edit-user");
-        return modelAndView;
-    }
-
-
-    @PostMapping("/admin/update")
-    public ModelAndView updatePost(@ModelAttribute("userEdit") User user) {
-        userService.saveUser(user);
-        return new ModelAndView("redirect:/admin");
-    }
-
-
-    @GetMapping("/admin/delete")
-    public ModelAndView deleteUser(@RequestParam("id") Long id, ModelAndView modelAndView) {
-        User user = userService.findById(id);
-        modelAndView.addObject("userDelete", user);
-        modelAndView.setViewName("/delete-user");
-        return modelAndView;
-    }
-
-
-    @PostMapping("/admin/delete{id}")
-    public ModelAndView deletePost(@RequestParam("id") Long id, ModelAndView model) {
-        userService.deleteById(id);
-        return new ModelAndView("redirect:/admin");
-    }
-
-
-    @GetMapping("/admin/add")
-    @ResponseBody
-    public User addGet() {
-        return new User();
-    }
-
-    @PostMapping({"/admin/add"})
-    public ModelAndView addPost(@ModelAttribute("usernew") User user, BindingResult result) {
-
-        userValidator.validate(user, result);
-        if (result.hasErrors()) {
-            ModelAndView modelAndView = new ModelAndView();
-            modelAndView.setViewName("/admin");
-            return modelAndView;
-        }
-
-        userService.saveUser(user);
-        return new ModelAndView("redirect:/admin");
-    }
-//    @PostMapping({"/admin/add"})
-//    @ResponseBody
-//    public void addPost(@ModelAttribute("user") User user,
-//                        @RequestParam(value = "roles", required = false) String[] roles){
 //
-////        ObjectMapper mapper = new ObjectMapper();
-////        User user1 = mapper.readValue(jsonInString, User.class);
-////
-//        System.out.println(user.toString());
-//        for(String role: roles){
-//            System.out.println(role);
-//        }
-//
-////        userService.saveUser(user);
+//    @GetMapping("/admin")
+//    public ModelAndView admin(ModelAndView modelAndView, Authentication authentication) {
+//        List<User> users = userService.findAll();
+//        modelAndView.addObject("users", users);
+//        modelAndView.addObject("authentication", authentication);
+//        modelAndView.addObject("usernew", new User());
+//        modelAndView.setViewName("/admin-page");
+//        return modelAndView;
 //    }
 
-    @GetMapping("/admin/all")
-    @ResponseBody
-    public List<User> allGet() {
-        return userService.findAll();
-    }
+//
+//    @GetMapping("/admin/update")
+//    public ModelAndView updateUser(@RequestParam("id") Long id, ModelAndView modelAndView) {
+//        User user = userService.findById(id);
+//        modelAndView.addObject("userEdit", user);
+//        modelAndView.setViewName("/edit-user");
+//        return modelAndView;
+//    }
 
 
-    @GetMapping("/admin/role")
-    @ResponseBody
-    public Set<Role> roleGet() {
-        Set<Role> roles = new HashSet<Role>();
-        for (Role role : Role.values()) {
-            roles.add(role);
-        }
-        return roles;
-    }
+//    @PostMapping("/admin/update")
+//    public ModelAndView updatePost(@ModelAttribute("userEdit") User user) {
+//        userService.saveUser(user);
+//        return new ModelAndView("redirect:/admin");
+//    }
+
+//
+//    @GetMapping("/admin/delete")
+//    public ModelAndView deleteUser(@RequestParam("id") Long id, ModelAndView modelAndView) {
+//        User user = userService.findById(id);
+//        modelAndView.addObject("userDelete", user);
+//        modelAndView.setViewName("/delete-user");
+//        return modelAndView;
+//    }
+
+//
+//    @PostMapping("/admin/delete{id}")
+//    public ModelAndView deletePost(@RequestParam("id") Long id, ModelAndView model) {
+//        userService.deleteById(id);
+//        return new ModelAndView("redirect:/admin");
+//    }
+
+//
+//    @GetMapping("/admin/add")
+//    @ResponseBody
+//    public User addGet() {
+//        return new User();
+//    }
+
+//    @PostMapping({"/admin/add"})
+//    public ModelAndView addPost(@ModelAttribute("usernew") User user, BindingResult result) {
+//
+//        userValidator.validate(user, result);
+//        if (result.hasErrors()) {
+//            ModelAndView modelAndView = new ModelAndView();
+//            modelAndView.setViewName("/admin");
+//            return modelAndView;
+//        }
+//        userService.saveUser(user);
+//        return new ModelAndView("redirect:/admin");
+//    }
+
+//
+//    @GetMapping("/admin/all")
+//    @ResponseBody
+//    public List<User> allGet() {
+//        return userService.findAll();
+//    }
+
+//
+//    @GetMapping("/admin/role")
+//    @ResponseBody
+//    public Set<Role> roleGet() {
+//        Set<Role> roles = new HashSet<Role>();
+//        for (Role role : Role.values()) {
+//            roles.add(role);
+//        }
+//        return roles;
+//    }
 
 
     @GetMapping(value = "/login")
