@@ -24,9 +24,9 @@
 
 
     <!-- Custom JS & CSS -->
-    <script type="text/javascript" src="../static/js/admin.js" th:src="@{/js/admin.js}"></script>
-
-    <link href="../static/css/style.css" rel="stylesheet" type="text/css"/>
+    <!--    <script type="text/javascript" src="../static/js/admin.js" th:src="@{/js/admin.js}"></script>-->
+    <script type="text/javascript" src="/js/admin.js"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
@@ -36,7 +36,7 @@
 <div class="card-group">
     <div class="form-text col-2">
         <div class="nav flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-users-tab" data-toggle="pill" href="#pills-users" role="tab"
+            <a class="nav-link  active" id="v-pills-users-tab" data-toggle="pill" href="#pills-users" role="tab"
                aria-controls="v-pills-home" aria-selected="true">ADMIN</a>
             <a class="nav-link" id="v-pills-newuser-tab" data-toggle="pill" href="#pills-newuser" role="tab"
                aria-controls="v-pills-newuser" aria-selected="false">USER</a>
@@ -49,7 +49,7 @@
             </div>
             <div class="card-body">
                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item " role="presentation">
                         <a class="nav-link active" id="pills-users-tab" data-toggle="pill" href="#pills-users"
                            role="tab"
                            aria-controls="pills-users" aria-selected="true">Users table</a>
@@ -60,7 +60,7 @@
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-users" role="tabpanel"
+                    <div class="tab-pane overflow-auto fade show active" id="pills-users" role="tabpanel"
                          aria-labelledby="pills-users-tab">
                         <table class="table table-striped">
                             <thead>
@@ -78,49 +78,64 @@
                                 <th scope="col" class="text-center">Delete</th>
                             </tr>
                             </thead>
-                            <tbody>
-<!--                            <div id="showModal">-->
+                            <tbody id="userTable">
+<!--                            <tr>-->
+<!--                                <td> id</td>-->
+<!--                                <td>Name</td>-->
+<!--                                <td>Surname</td>-->
+<!--                                <td>Age</td>-->
+<!--                                <td>Email</td>-->
+<!--                                <td>-->
+<!--                                    <a>ADMIN</a>-->
+<!--                                    <a>USER</a>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <a class="btn-edit btn-outline-info" >Edit</a>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <a class="btn-edit btn-outline-danger" >Delete</a>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <th:block id="userblock" th:each="user : ${users}">-->
+<!--                                <tr>-->
+<!--                                    <td th:text="${user.getId()}"></td>-->
+<!--                                    <td th:text="${user.getName()}"></td>-->
+<!--                                    <td th:text="${user.getSurname()}"></td>-->
+<!--                                    <td th:text="${user.getAge()}"></td>-->
+<!--                                    <td th:text="${user.getEmail()}"></td>-->
+<!--                                    <td>-->
+<!--                                        <th:block th:each="role : ${user.getRoles()}">-->
+<!--                                            <a th:text="${role.name()}"></a>-->
+<!--                                        </th:block>-->
 
-<!--                            </div>-->
-                            <th:block th:each="user : ${users}">
-                                <tr>
-                                    <td th:text="${user.getId()}"></td>
-                                    <td th:text="${user.getName()}"></td>
-                                    <td th:text="${user.getSurname()}"></td>
-                                    <td th:text="${user.getAge()}"></td>
-                                    <td th:text="${user.getEmail()}"></td>
-                                    <td>
-                                        <th:block th:each="role : ${user.getRoles()}">
-                                            <a th:text="${role.name()}"></a>
-                                        </th:block>
+<!--                                    </td>-->
+<!--                                    <td>-->
 
-                                    </td>
-                                    <td>
-
-                                        <a id="button-edit" th:data-user-id="${user.id}" th:data-method="update"
-                                           class="btn btn-outline-info" role="button-edit" data-toggle="modal"
-                                           data-target="#showModal">Edit
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a id="button-delete" th:data-user-id="${user.id}" th:data-method="delete"
-                                           class="btn btn-outline-danger" role="button-delete" data-toggle="modal"
-                                           data-target="#showModal">
-                                            Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                            </th:block>
+<!--                                        <a  th:data-user-id="${user.id}" th:data-method="update"-->
+<!--                                           class="btn-edit btn-outline-info" role="button-edit"-->
+<!--                                           >Edit-->
+<!--                                        </a>-->
+<!--                                    </td>-->
+<!--                                    <td>-->
+<!--                                        <a th:data-user-id="${user.id}" th:data-method="delete"-->
+<!--                                           class="btn-edit btn-outline-danger" role="button-delete" data-toggle="modal"-->
+<!--                                           data-target="#showModal">-->
+<!--                                            Delete-->
+<!--                                        </a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </th:block>-->
                             </tbody>
                         </table>
                     </div>
-                    <div class="tab-pane fade" id="pills-newuser" role="tabpanel" aria-labelledby="pills-newuser-tab">
+                    <div class="tab-pane overflow-auto fade" id="pills-newuser" role="tabpanel"
+                         aria-labelledby="pills-newuser-tab">
                         <!--                        Add new user tab-->
 
                         <form id="addForm" action="#" th:action="@{/admin/add}" th:object="${usernew}" method="POST">
                             <h5>Add new user</h5>
                             <!-- Add hidden form field to handle update -->
-                            <div id="card-add-from" class="card-add text-center">
+                            <div id="card-add-from" class="card-add col-4 offset-4  text-center">
                                 <input type="hidden" th:field="*{id}">
                                 <div class="form-group text-center">
                                     <label for="addName">First name</label>
@@ -172,12 +187,17 @@
 
     </div>
 </div>
-
-<!--<div th:insert="blocks/edit-user::edit-form"></div>-->
-<div class="modal fade" id="showModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>
+<div class="modal-form">
+    <div th:insert="edit-user::edit-form"></div>
+</div>
+<!--<div class="modal fade" id="showModal" data-backdrop="static" data-keyboard="false" tabindex="-1"-->
+<!--     aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>-->
 
 <!--<div th:insert="blocks/delete-user::delete-form"></div>-->
+<!--<div class="modal fade" id="showModal" data-backdrop="static" data-keyboard="false" tabindex="-1"-->
+<!--     aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>-->
+<!-- Button trigger modal -->
+
 
 
 <!-- JS, Popper.js, and jQuery -->

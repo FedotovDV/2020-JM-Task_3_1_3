@@ -2,39 +2,5 @@
     margin: 0px;
 }
 
-.form-row {
 
-    justify-content: center; /*Центрирование по горизонтали*/
-    align-items: center; /*Центрирование по вертикали */
-}
-
-.modal-body {
-
-    padding-left: 90px;
-    justify-content: center; /*Центрирование по горизонтали*/
-    align-items: center; /*Центрирование по вертикали */
-}
-
-#card-edit-from {
-    width: 80%;
-    align-items: center;
-}
-
-#addForm {
-    justify-content: center;
-}
-
-#card-add-from {
-    padding-left: 30%;
-    padding-right: 30%;
-}
-
-label {
-    font-weight: bold
-}
-
-#role-select {
-    height: 20px;
-    width: 60px;
-}
 
