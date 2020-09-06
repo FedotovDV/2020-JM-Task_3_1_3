@@ -61,40 +61,36 @@ $('document').ready(function () {
         });
         console.log(user);
 
+        // не добавляет роли
+        // let userAdd = {
+        //     name: $("#addName").val(),
+        //     surname: $("#addSurname").val(),
+        //     email: $("#addEmail").val(),
+        //     age: $("#addAge").val(),
+        //     password: $("#addPassword").val(),
+        //     roles: $("#add-role-select").val()
+        // };
 
-        let userAdd = {
-            name : $("#addName").val(),
-            surname : $("#addSurname").val(),
-            email : $("#addEmail").val(),
-            age : $("#addAge").val(),
-            password : $("#addPassword").val(),
-            roles :  'USER'
-        };
-
-        userAdd  = JSON.stringify( userAdd  )
-        // let userAdd = "{ name: \"" + $("#addName").val() +
-        //     "\", surname: \"" + $("#addSurname").val() +
-        //     "\", email: \"" + $("#addEmail").val() +
-        //     "\", age: \"" + $("#addAge").val() +
-        //     "\", password: \"" + $("#addPassword").val() +
-        //     "\", roles:[" + $("#add-role-select").val()+"]}";
-
-        // console.log(userAdd);
+        userAdd = JSON.stringify(user);
         $.ajax({
             type: 'POST',
             url: '/admin/save',
             data: userAdd,
             contentType: 'application/json; charset=utf-8',
             success: function () {
+                $('#pills-users-tab, #pills-users').addClass('active');
+                $('#pills-users').addClass('show');
+                $('#pills-newuser-tab, #pills-newuser').removeClass('active');
+                $('#pills-newuser').removeClass('show');
                 clearAddForm();
                 addUserTable();
             }
         })
     });
 
-function clearAddForm(){
-    $('#addForm').find('input, select').each(function () {
-        $(this).val("");
-    });
-}
+    function clearAddForm() {
+        $('#addForm').find('input, select').each(function () {
+            $(this).val("");
+        });
+    }
 })
