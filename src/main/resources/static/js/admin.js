@@ -1,11 +1,12 @@
 addUserTable();
 
 function addUserTable() {
-    $.getJSON("http://localhost:8080/admin/list", function (data) {
+    $.get("http://localhost:8080/admin/list", function (data) {
         let content = '';
         let userId = '';
 
         $.each(data, function (index, user) {
+            console.log(user);
             userId = user.id;
             content += '<tr>';
             content += '<td class="text-center">' + user.id + '</td>>';
@@ -30,25 +31,6 @@ function addUserTable() {
 
 $('document').ready(function () {
 
-    //
-    // $("#showModal").on('show.bs.modal', function (event) {
-    //     let userId = $(event.relatedTarget).data('user-id');
-    //     let method = $(event.relatedTarget).data('method');
-    //     const href = "/admin/" + method + "?id=" + userId;
-    //     $.get(href, function (data) {
-    //         $('#showModal').empty().html(data);
-    //         // $('#showModal').html(data);
-    //     });
-    // });
-
-
-    // $("#v-pills-users-tab").on('click', function () {
-    //     addUserTable();
-    // });
-
-    // $("#userTable .btn-edit").on(
-    //     'click', function (event) {
-    // $(document).on("click", ".btn-edit", function (event) {
     $("#showModal").on('show.bs.modal', function (event) {
         let button = event.relatedTarget;
         if (button != null) {
@@ -71,28 +53,48 @@ $('document').ready(function () {
         }
     });
 
-
-    // $("#saveButton").on(
-    //     'click', function () {
-    //         console.log('click-click');
-    //         $('#showModal').modal('hide');
-    //     });
-
-    // $("#v-pills-users-tab").on('click', function () {
-    //     const href = "/admin/role";
-    //     $.get(href, function (data) {
-    //         console.log(data);
-    //
-    //     });
-    // });
-    //
-    // $("#v-pills-newuser-tab").on('click', function () {
-    //     const href = "/admin/all";
-    //     $.get(href, function (data) {
-    //         console.log(data);
-    //
-    //     });
-    // });
+    $('#addButton').on('click', function (event) {
+        event.preventDefault();
+        let user = {};
+        $('#addForm').find('input, select').each(function () {
+            user[this.name] = $(this).val();
+        });
+        console.log(user);
 
 
+        let userAdd = {
+            name : $("#addName").val(),
+            surname : $("#addSurname").val(),
+            email : $("#addEmail").val(),
+            age : $("#addAge").val(),
+            password : $("#addPassword").val(),
+            roles :  'USER'
+        };
+
+        userAdd  = JSON.stringify( userAdd  )
+        // let userAdd = "{ name: \"" + $("#addName").val() +
+        //     "\", surname: \"" + $("#addSurname").val() +
+        //     "\", email: \"" + $("#addEmail").val() +
+        //     "\", age: \"" + $("#addAge").val() +
+        //     "\", password: \"" + $("#addPassword").val() +
+        //     "\", roles:[" + $("#add-role-select").val()+"]}";
+
+        // console.log(userAdd);
+        $.ajax({
+            type: 'POST',
+            url: '/admin/save',
+            data: userAdd,
+            contentType: 'application/json; charset=utf-8',
+            success: function () {
+                clearAddForm();
+                addUserTable();
+            }
+        })
+    });
+
+function clearAddForm(){
+    $('#addForm').find('input, select').each(function () {
+        $(this).val("");
+    });
+}
 })
