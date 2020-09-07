@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ru.javamentor.task_3_1_3.model.User;
 import ru.javamentor.task_3_1_3.repository.UserRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -32,11 +33,15 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    @Transactional
     public User saveUser(User user){
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+    public User updateUser(User user){
+        return userRepository.save(user);
+    }
+
 
     public void deleteById(Long id){
         userRepository.deleteById(id);

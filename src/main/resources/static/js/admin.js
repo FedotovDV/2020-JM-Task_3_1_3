@@ -59,8 +59,13 @@ $('document').ready(function () {
         $('#addForm').find('input, select').each(function () {
             user[this.name] = $(this).val();
         });
-        console.log(user);
-
+        // console.log(user);
+        // let roles = $("#add-role-select").val();
+        // let roles = [];
+        // $('input:checkbox:checked').each(function () {
+        //     roles.push($(this).val());
+        // });
+        // console.log(roles);
         // не добавляет роли
         // let userAdd = {
         //     name: $("#addName").val(),
@@ -68,10 +73,11 @@ $('document').ready(function () {
         //     email: $("#addEmail").val(),
         //     age: $("#addAge").val(),
         //     password: $("#addPassword").val(),
-        //     roles: $("#add-role-select").val()
+        //     roles: roles
         // };
-
+        // console.log(userAdd);
         userAdd = JSON.stringify(user);
+        console.log(userAdd);
         $.ajax({
             type: 'POST',
             url: '/admin/save',

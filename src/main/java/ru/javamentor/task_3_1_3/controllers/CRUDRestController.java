@@ -38,6 +38,7 @@ public class CRUDRestController {
 //        modelAndView.addObject("users", users);
         modelAndView.addObject("authentication", authentication);
         modelAndView.addObject("usernew", new User());
+        modelAndView.addObject("roles", Role.values());
         modelAndView.setViewName("admin-page");
         return modelAndView;
     }
@@ -46,7 +47,7 @@ public class CRUDRestController {
 
     @GetMapping("/list")
     public  ResponseEntity<List<User>> getUserList() {
-        return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
@@ -56,7 +57,7 @@ public class CRUDRestController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateUser(@RequestBody User user) {
-        userService.saveUser(user);
+        userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
     @PostMapping("/save")
