@@ -138,33 +138,33 @@
                             <div id="card-add-from" class="card-add col-4 offset-4  text-center">
                                 <!--                                <input type="hidden" th:field="*{id}">-->
                                 <div class="form-group text-center">
-                                    <label for="addName">First name</label>
-                                    <input id="addName" type="text" th:field="*{name}" class="form-control"
+                                    <label for="nameAdd">First name</label>
+                                    <input id="nameAdd" type="text" th:field="*{name}" class="form-control"
                                            placeholder="name" required="required">
                                 </div>
                                 <div class="form-group text-center">
-                                    <label for="addSurname">Last name</label>
-                                    <input id="addSurname" type="text" th:field="*{surname}" class="form-control"
+                                    <label for="surnameAdd">Last name</label>
+                                    <input id="surnameAdd" type="text" th:field="*{surname}" class="form-control"
                                            placeholder="surname" required="required">
                                 </div>
                                 <div class="form-group text-center">
-                                    <label for="addEmail">Email</label>
-                                    <input id="addEmail" type="email" th:field="*{email}" class="form-control"
+                                    <label for="emailAdd">Email</label>
+                                    <input id="emailAdd" type="email" th:field="*{email}" class="form-control"
                                            placeholder="email" required="required">
                                 </div>
                                 <div class="form-group text-center">
-                                    <label for="addAge">Age</label>
-                                    <input id="addAge" type="number" th:field="*{age}" class="form-control"
+                                    <label for="ageAdd">Age</label>
+                                    <input id="ageAdd" type="number" th:field="*{age}" class="form-control"
                                            placeholder="age" required="required">
                                 </div>
                                 <div class="form-group text-center">
-                                    <label for="addPassword">Password</label>
-                                    <input id="addPassword" type="text" th:field="*{password}"
+                                    <label for="passwordAdd">Password</label>
+                                    <input id="passwordAdd" type="text" th:field="*{password}"
                                            class="form-control" placeholder="password" required="required">
                                 </div>
                                 <div class="form-group text-center">
-                                    <label for="addConfirmPassword">Confirm Password</label>
-                                    <input id="addConfirmPassword" type="text" th:field="*{confirmPassword}"
+                                    <label for="confirmPasswordAdd">Confirm Password</label>
+                                    <input id="confirmPasswordAdd" type="text" th:field="*{confirmPassword}"
                                            class="form-control" placeholder="confirmPassword"
                                            required="required">
                                     <!--                                </div>-->
@@ -178,11 +178,11 @@
                                     <!--                                    </div>-->
                                     <!--                                </div>-->
                                     <div class="form-group text-center">
-                                        <label for="add-role-select">Role</label>
+                                        <label for="rolesAdd">Role</label>
                                         <div>
                                             <th:block>
                                                 <select name="roles" class="custom-select" th:field="*{roles}"
-                                                        id="add-role-select"
+                                                        id="rolesAdd"
                                                         multiple="multiple" required="required">
                                                     <option th:each="role : ${roles}"
                                                             th:name="${role.name()}"
@@ -197,6 +197,7 @@
                                     <button id="addButton" type="submit" class="btn btn-outline-info">Add new user
                                     </button>
                                 </div>
+                            </div>
                         </form>
 
                     </div>

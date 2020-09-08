@@ -1,6 +1,8 @@
 addUserTable();
 
 function addUserTable() {
+
+    console.log("addUserTable()");
     $.get("http://localhost:8080/admin/list", function (data) {
         let content = '';
         let userId = '';
@@ -23,20 +25,42 @@ function addUserTable() {
             content += '<td class="text-center"><a class="btn-edit btn-outline-danger" id="editButtonD' + user.id + '" role="button" data-toggle="modal" data-target="#showModal">Delete</a></td>';
             content += '</tr>';
         });
-        $('#userTable').append(content);
+
+        $('#userTable').empty().append(content);
     });
 
 
 }
 
+function clearAddForm() {
+    console.log("clearAddForm(");
+    $('#addForm').find('input, select').each(function () {
+        $(this).val("");
+    });
+}
+
+function clearModalForm() {
+    console.log("clearModalForm()");
+    $('#idEdit').val('');
+    $('#nameEdit').val('');
+    $('#surnameEdit').val('');
+    $('#emailEdit').val('');
+    $('#ageEdit').val('');
+    $('#passwordEdit').val('');
+    $('#roleEdit').val('');
+}
+
+
 $('document').ready(function () {
 
     $("#showModal").on('show.bs.modal', function (event) {
+
+        console.log("#showModal");
         let button = event.relatedTarget;
         if (button != null) {
             let userId = button.id.substring(11);
             let method = button.text;
-
+            clearModalForm();
             const href = "/admin/user/" + userId;
             $.get(href, function (data) {
                 $('#idEdit').val(data.id);
@@ -48,7 +72,6 @@ $('document').ready(function () {
                 $('#roleEdit').val(data.authorities);
                 $('#edit-button').text(method);
                 $('#showModal').modal('show');
-
             });
         }
     });
@@ -66,7 +89,6 @@ $('document').ready(function () {
         //     roles.push($(this).val());
         // });
         // console.log(roles);
-        // не добавляет роли
         // let userAdd = {
         //     name: $("#addName").val(),
         //     surname: $("#addSurname").val(),
@@ -77,7 +99,6 @@ $('document').ready(function () {
         // };
         // console.log(userAdd);
         userAdd = JSON.stringify(user);
-        console.log(userAdd);
         $.ajax({
             type: 'POST',
             url: '/admin/save',
@@ -94,9 +115,50 @@ $('document').ready(function () {
         })
     });
 
-    function clearAddForm() {
-        $('#addForm').find('input, select').each(function () {
-            $(this).val("");
-        });
-    }
+    $("body").on("click", "#edit-button", function (event) {
+    // $('#edit-button').on('click', function (event) {
+        event.preventDefault();
+        let url = "";
+        let method = $(this).text();
+        if (method == 'Delete') {
+            console.log('Delete');
+            url = '/admin/delete/' + $('#idEdit').val();
+            method = "DELETE";
+            $.ajax({
+                type: method,
+                url: url,
+                success: function () {
+                    $('#showModal').modal('hide');
+                }
+            })
+        } else {
+            console.log('Edit');
+            let userEdit = {
+                id: $('#idEdit').val(),
+                name: $("#nameEdit").val(),
+                surname: $("#surnameEdit").val(),
+                email: $("#emailEdit").val(),
+                age: $("#ageEdit").val(),
+                password: $("#passwordEdit").val(),
+                roles: $("#roleEdit").val()
+            };
+            userEdit = JSON.stringify(userEdit);
+            url = '/admin/update/' + $('#idEdit').val();
+            method = "PUT";
+            $.ajax({
+                type: method,
+                url: url,
+                data: userEdit,
+                contentType: 'application/json; charset=utf-8',
+                success: function () {
+                    $('#showModal').modal('hide');
+                }
+            })
+        }
+
+        clearModalForm();
+        addUserTable();
+    });
+
 })
+

@@ -26,18 +26,22 @@ public class UserService implements UserDetailsService {
 
 
     public User findById(Long id){
+        System.out.println("findById"+id);
         return userRepository.getOne(id);
     }
+
 
     public List<User> findAll(){
         return userRepository.findAll();
     }
 
-    @Transactional
+
     public User saveUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
+
     public User updateUser(User user){
         return userRepository.save(user);
     }
@@ -46,6 +50,7 @@ public class UserService implements UserDetailsService {
     public void deleteById(Long id){
         userRepository.deleteById(id);
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

@@ -34,8 +34,6 @@ public class CRUDRestController {
         ModelAndView modelAndView = new ModelAndView();
         String email = authentication.getName();
         User user = (User) userService.loadUserByUsername(email);
-//        List<User> users = userService.findAll();
-//        modelAndView.addObject("users", users);
         modelAndView.addObject("authentication", authentication);
         modelAndView.addObject("usernew", new User());
         modelAndView.addObject("roles", Role.values());
@@ -44,70 +42,37 @@ public class CRUDRestController {
     }
 
 
-
     @GetMapping("/list")
-    public  ResponseEntity<List<User>> getUserList() {
+    public ResponseEntity<List<User>> getUserList() {
+        System.out.println(" getUserList()");
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        return new ResponseEntity<>(userService.findById(id),HttpStatus.OK);
+        System.out.println(" getUser"+id);
+        return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateUser(@RequestBody User user) {
+        System.out.println("Update User "+ user);
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     @PostMapping("/save")
-    public ResponseEntity<Void> saveUser(@RequestBody  User user) {
-//        System.out.println(user);
-        System.out.println(user.toString());
+    public ResponseEntity<Void> saveUser(@RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        System.out.println("Delete User "+ id);
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-
-
-
-
-//    @GetMapping("/update")
-//    public ModelAndView updateUser(@RequestParam("id") Long id, ModelAndView modelAndView) {
-//        User user = userService.findById(id);
-//        modelAndView.addObject("userEdit", user);
-//        modelAndView.setViewName("edit-user");
-//        return modelAndView;
-//    }
-
-//
-//    @PostMapping("/update")
-//    public ModelAndView updatePost(@ModelAttribute("userEdit") User user) {
-//        userService.saveUser(user);
-//        return new ModelAndView("redirect:/admin");
-//    }
-
-
-//    @GetMapping("/delete")
-//    public ModelAndView deleteUser(@RequestParam("id") Long id, ModelAndView modelAndView) {
-//        User user = userService.findById(id);
-//        modelAndView.addObject("userDelete", user);
-//        modelAndView.setViewName("delete-user");
-//        return modelAndView;
-//    }
-
-
-//    @PostMapping("/admin/delete{id}")
-//    public ModelAndView deletePost(@RequestParam("id") Long id, ModelAndView model) {
-//        userService.deleteById(id);
-//        return new ModelAndView("redirect:/admin");
-//    }
 
 
     @GetMapping("/add")
@@ -115,28 +80,7 @@ public class CRUDRestController {
     public User addGet() {
         return new User();
     }
-//
-//    @PostMapping({"/admin/add"})
-//    public ModelAndView addPost(@ModelAttribute("usernew") User user, BindingResult result) {
-//
-//        userValidator.validate(user, result);
-//        if (result.hasErrors()) {
-//            ModelAndView modelAndView = new ModelAndView();
-//            modelAndView.setViewName("/admin");
-//            return modelAndView;
-//        }
-//        userService.saveUser(user);
-//        return new ModelAndView("redirect:/admin");
-//    }
 
-//
-//    @GetMapping("/admin/all")
-//    @ResponseBody
-//    public List<User> allGet() {
-//        return userService.findAll();
-//    }
-
-//
     @GetMapping("/role")
     @ResponseBody
     public Set<Role> roleGet() {
