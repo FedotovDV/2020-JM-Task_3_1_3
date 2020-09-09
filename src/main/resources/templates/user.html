@@ -15,7 +15,7 @@
 
 
     <!-- Custom JS & CSS -->
-    <script type="text/javascript" src="../static/js/admin.js" th:src="@{/js/admin.js}"></script>
+
 
     <link href="/css/style.css" rel="stylesheet" type="text/css"/>
 
@@ -62,7 +62,11 @@
                                 <td th:text="${user.surname}"></td>
                                 <td th:text="${user.age}"></td>
                                 <td th:text="${user.email}"></td>
-                                <td th:text="${titleRole}"></td>
+                                <td>
+                                    <th:block th:each="role : ${user.getRoles()}">
+                                        <a th:text="${role.name()}"></a>
+                                    </th:block>
+                                </td>
                             </tr>
 
                             </tbody>

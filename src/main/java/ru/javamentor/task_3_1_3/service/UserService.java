@@ -1,59 +1,21 @@
 package ru.javamentor.task_3_1_3.service;
 
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import ru.javamentor.task_3_1_3.model.User;
-import ru.javamentor.task_3_1_3.repository.UserRepository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
+public interface UserService  {
+    User findById(Long id);
 
-@Service
-public class UserService implements UserDetailsService {
+    List<User> findAll();
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    User saveUser(User user);
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    User updateUser(User user);
 
-
-    public User findById(Long id){
-        System.out.println("findById"+id);
-        return userRepository.getOne(id);
-    }
+    void deleteById(Long id);
 
 
-    public List<User> findAll(){
-        return userRepository.findAll();
-    }
-
-
-    public User saveUser(User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
-    }
-
-
-    public User updateUser(User user){
-        return userRepository.save(user);
-    }
-
-
-    public void deleteById(Long id){
-        userRepository.deleteById(id);
-    }
-
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email);
-    }
+    User loadUserByUsername(String email);
 }

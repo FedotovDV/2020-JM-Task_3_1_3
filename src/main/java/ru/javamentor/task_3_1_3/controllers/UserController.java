@@ -12,10 +12,6 @@ import ru.javamentor.task_3_1_3.model.User;
 import ru.javamentor.task_3_1_3.service.UserService;
 import ru.javamentor.task_3_1_3.util.UserValidator;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Controller
 @RequestMapping("/")
 public class UserController {
@@ -53,7 +49,6 @@ public class UserController {
     public ModelAndView userForm(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();//(ModelAndView modelAndView, Principal principal) {
         String email = authentication.getName();
-
         User user = (User) userService.loadUserByUsername(email);
         modelAndView.addObject("user", user);
         modelAndView.addObject("authentication", authentication);

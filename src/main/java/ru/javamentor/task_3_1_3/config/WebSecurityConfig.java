@@ -1,7 +1,6 @@
 package ru.javamentor.task_3_1_3.config;
 
 
-
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -34,10 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/css/*.css","/fonts/**","/js/*.js").permitAll()
+                .antMatchers("/css/*.css", "/fonts/**", "/js/*.js").permitAll()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .antMatchers("/", "/registration", "/test", "/index", "/login").anonymous()
-                .antMatchers("/user", "/user/*", "/test", "/index").authenticated()
+                .antMatchers("/", "/registration", "/login").anonymous()
+                .antMatchers("/user", "/user/*").authenticated()
                 .antMatchers("/admin", "/admin/*", "/admin#*").hasAnyAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and().csrf().disable()
@@ -59,7 +58,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService)
+        auth.userDetailsService(userService::loadUserByUsername)
                 .passwordEncoder(passwordEncoder);
     }
 

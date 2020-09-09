@@ -79,52 +79,6 @@
                             </tr>
                             </thead>
                             <tbody id="userTable">
-                            <!--                            <tr>-->
-                            <!--                                <td> id</td>-->
-                            <!--                                <td>Name</td>-->
-                            <!--                                <td>Surname</td>-->
-                            <!--                                <td>Age</td>-->
-                            <!--                                <td>Email</td>-->
-                            <!--                                <td>-->
-                            <!--                                    <a>ADMIN</a>-->
-                            <!--                                    <a>USER</a>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <a class="btn-edit btn-outline-info" >Edit</a>-->
-                            <!--                                </td>-->
-                            <!--                                <td>-->
-                            <!--                                    <a class="btn-edit btn-outline-danger" >Delete</a>-->
-                            <!--                                </td>-->
-                            <!--                            </tr>-->
-                            <!--                            <th:block id="userblock" th:each="user : ${users}">-->
-                            <!--                                <tr>-->
-                            <!--                                    <td th:text="${user.getId()}"></td>-->
-                            <!--                                    <td th:text="${user.getName()}"></td>-->
-                            <!--                                    <td th:text="${user.getSurname()}"></td>-->
-                            <!--                                    <td th:text="${user.getAge()}"></td>-->
-                            <!--                                    <td th:text="${user.getEmail()}"></td>-->
-                            <!--                                    <td>-->
-                            <!--                                        <th:block th:each="role : ${user.getRoles()}">-->
-                            <!--                                            <a th:text="${role.name()}"></a>-->
-                            <!--                                        </th:block>-->
-
-                            <!--                                    </td>-->
-                            <!--                                    <td>-->
-
-                            <!--                                        <a  th:data-user-id="${user.id}" th:data-method="update"-->
-                            <!--                                           class="btn-edit btn-outline-info" role="button-edit"-->
-                            <!--                                           >Edit-->
-                            <!--                                        </a>-->
-                            <!--                                    </td>-->
-                            <!--                                    <td>-->
-                            <!--                                        <a th:data-user-id="${user.id}" th:data-method="delete"-->
-                            <!--                                           class="btn-edit btn-outline-danger" role="button-delete" data-toggle="modal"-->
-                            <!--                                           data-target="#showModal">-->
-                            <!--                                            Delete-->
-                            <!--                                        </a>-->
-                            <!--                                    </td>-->
-                            <!--                                </tr>-->
-                            <!--                            </th:block>-->
                             </tbody>
                         </table>
                     </div>
@@ -210,13 +164,7 @@
 <div class="modal-form">
     <div th:insert="edit-user::edit-form"></div>
 </div>
-<!--<div class="modal fade" id="showModal" data-backdrop="static" data-keyboard="false" tabindex="-1"-->
-<!--     aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>-->
 
-<!--<div th:insert="blocks/delete-user::delete-form"></div>-->
-<!--<div class="modal fade" id="showModal" data-backdrop="static" data-keyboard="false" tabindex="-1"-->
-<!--     aria-labelledby="staticBackdropLabel" aria-hidden="true"></div>-->
-<!-- Button trigger modal -->
 
 
 <!-- JS, Popper.js, and jQuery -->

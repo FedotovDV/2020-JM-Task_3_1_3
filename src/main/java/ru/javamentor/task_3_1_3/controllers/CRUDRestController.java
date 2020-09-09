@@ -3,7 +3,6 @@ package ru.javamentor.task_3_1_3.controllers;
 import org.springframework.security.core.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.javamentor.task_3_1_3.model.Role;
@@ -32,8 +31,6 @@ public class CRUDRestController {
     @GetMapping
     public ModelAndView admin(Authentication authentication) {
         ModelAndView modelAndView = new ModelAndView();
-        String email = authentication.getName();
-        User user = (User) userService.loadUserByUsername(email);
         modelAndView.addObject("authentication", authentication);
         modelAndView.addObject("usernew", new User());
         modelAndView.addObject("roles", Role.values());
@@ -50,13 +47,13 @@ public class CRUDRestController {
 
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        System.out.println(" getUser"+id);
+        System.out.println(" getUser" + id);
         return new ResponseEntity<User>(userService.findById(id), HttpStatus.OK);
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateUser(@RequestBody User user) {
-        System.out.println("Update User "+ user);
+        System.out.println("Update User " + user);
         userService.updateUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -69,7 +66,7 @@ public class CRUDRestController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        System.out.println("Delete User "+ id);
+        System.out.println("Delete User " + id);
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

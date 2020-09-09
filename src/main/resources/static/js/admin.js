@@ -17,7 +17,7 @@ function addUserTable() {
             content += '<td class="text-center">' + user.age + '</td>>';
             content += '<td class="text-center">' + user.email + '</td>>';
             content += '<td class="text-center">'
-            $.each(user.authorities, function (index, role) {
+            $.each(user.roles, function (index, role) {
                 content += '<a>' + role + '</a><br/>';
             });
             content += '</td>'
@@ -69,7 +69,7 @@ $('document').ready(function () {
                 $('#emailEdit').val(data.email);
                 $('#ageEdit').val(data.age);
                 $('#passwordEdit').val(data.password);
-                $('#roleEdit').val(data.authorities);
+                $('#roleEdit').val(data.roles);
                 $('#edit-button').text(method);
                 $('#showModal').modal('show');
             });
@@ -82,22 +82,6 @@ $('document').ready(function () {
         $('#addForm').find('input, select').each(function () {
             user[this.name] = $(this).val();
         });
-        // console.log(user);
-        // let roles = $("#add-role-select").val();
-        // let roles = [];
-        // $('input:checkbox:checked').each(function () {
-        //     roles.push($(this).val());
-        // });
-        // console.log(roles);
-        // let userAdd = {
-        //     name: $("#addName").val(),
-        //     surname: $("#addSurname").val(),
-        //     email: $("#addEmail").val(),
-        //     age: $("#addAge").val(),
-        //     password: $("#addPassword").val(),
-        //     roles: roles
-        // };
-        // console.log(userAdd);
         userAdd = JSON.stringify(user);
         $.ajax({
             type: 'POST',
@@ -129,6 +113,8 @@ $('document').ready(function () {
                 url: url,
                 success: function () {
                     $('#showModal').modal('hide');
+                    clearModalForm();
+                    addUserTable();
                 }
             })
         } else {
@@ -152,12 +138,12 @@ $('document').ready(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function () {
                     $('#showModal').modal('hide');
+                    clearModalForm();
+                    addUserTable();
                 }
             })
         }
 
-        clearModalForm();
-        addUserTable();
     });
 
 })
