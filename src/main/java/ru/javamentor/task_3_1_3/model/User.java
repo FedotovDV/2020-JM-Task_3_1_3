@@ -12,6 +12,7 @@ import java.util.Set;
 
 // Testing rebase
 // This is master
+// Master commit 2
 // Для того, чтобы в дальнейшим использовать класс User в Spring Security, он должен реализовывать интерфейс UserDetails.
 // UserDetails можно представить, как адаптер между БД пользователей и тем что требуется Spring Security внутри SecurityContextHolder
 @Entity
