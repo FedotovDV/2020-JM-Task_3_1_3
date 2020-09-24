@@ -14,6 +14,8 @@ import java.util.Set;
 // This is master
 // Master commit 2
 // Master commit 3
+
+// Master commit 4
 // Для того, чтобы в дальнейшим использовать класс User в Spring Security, он должен реализовывать интерфейс UserDetails.
 // UserDetails можно представить, как адаптер между БД пользователей и тем что требуется Spring Security внутри SecurityContextHolder
 @Entity
