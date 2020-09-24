@@ -27,7 +27,6 @@ public class User implements UserDetails {
     @Transient
     private String confirmPassword;
 
-
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
